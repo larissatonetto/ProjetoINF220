@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS padrão Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <!-- CSS customizado -->
+    <link rel="stylesheet" href="./css/styles.css">
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <title>Carrinho</title>
+</head>
+
+<body class="car-body">
+    <div class="container-fluid car-container pb-3">
+        <a class="reg-a text-decoration-none text-primary" href="./index.html">Voltar</a>
+        <div class="py-5">
+            <h2 class="fw-bold">Carrinho</h2>
+        </div>
+
+        <ul class="list-group list-group-flush car-lista">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-1">
+                        <p class="lista-p">1</p>
+                    </div>
+                    <div class="col-8">
+                        <p class="lista-p">Item A</p>
+                    </div>
+                    <div class="col-3 text-end">
+                        <p class="lista-p">R$ 5,99</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-1">
+                        <p class="lista-p">2</p>
+                    </div>
+                    <div class="col-8">
+                        <p class="lista-p">Item B</p>
+                    </div>
+                    <div class="col-3 text-end">
+                        <p class="lista-p">R$ 18,00</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-1">
+                        <p class="lista-p">1</p>
+                    </div>
+                    <div class="col-8">
+                        <p class="lista-p">Item C</p>
+                    </div>
+                    <div class="col-3 text-end">
+                        <p class="lista-p">R$ 3,00</p>
+                    </div>
+                </div>
+            </li>
+
+        </ul> <!-- Final da lista de itens -->
+
+        <!-- Total -->
+        <ul class="list-group list-group-flush car-lista mt-4">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-3">
+                        <p class="lista-p">Taxa de entrega</p>
+                    </div>
+                    <div class="col-9 text-end">
+                        <p class="lista-p">R$ 1,00</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-3">
+                        <p class="lista-p">Total</p>
+                    </div>
+                    <div class="col-9 text-end">
+                        <p class="lista-p fw-bold">R$ 27,99</p>
+                    </div>
+                </div>
+            </li>
+        </ul> <!-- Final do total -->
+
+        <hr class="my-5">
+
+        <!-- Endereço -->
+        <h4 class="mb-4">Endereço</h4>
+        <select class="form-select">
+            <option selected>Selecione o endereço de entrega</option>
+            <option value="1">Casa</option>
+            <option value="2">Trabalho</option>
+            <option value="3">Casa da vó</option>
+        </select>
+
+        <!-- Final do endereço -->
+
+        <hr class="my-5">
+
+        <!-- Método de pagamento -->
+        <h4 class="mb-4">Método de pagamento</h4>
+        <!-- Guarda os links -->
+        <div class="metodo-pag">
+            <p>
+                <a class="a-metodo text-muted text-decoration-none dropdown-toggle me-3" data-bs-toggle="collapse"
+                    href="#collapseDinheiro" role="button">
+                    Dinheiro
+                </a>
+
+                <a class="a-metodo text-muted text-decoration-none dropdown-toggle me-3" data-bs-toggle="collapse"
+                    href="#collapseCartao" role="button">
+                    Cartão
+                </a>
+
+                <!-- <a class="a-metodo text-muted text-decoration-none dropdown-toggle me-3" data-bs-toggle="collapse"
+                    href="#collapsePix" role="button">
+                    Pix
+                </a> -->
+            </p>
+
+            <!-- Guarda as expansões dos links -->
+            <!-- Dinheiro -->
+            <div class="collapse" id="collapseDinheiro">
+                <div class="card card-body">
+                    <form>
+                        <div class="col-2">
+                            <label for="inputDinheiro" class="form-label">Troco para</label>
+                            <input type="text" class="form-control" id="inputDinheiro">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Cartão de crédito-->
+            <div class="collapse" id="collapseCartao">
+                <div class="card card-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="tipo" class="form-label">Tipo de cartão</label>
+                                <input type="text" class="form-control" id="tipo">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="numCartao" class="form-label">Número do cartão</label>
+                                <input type="text" class="form-control" id="numCartao">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-2">
+                                <label for="validade" class="form-label">Data de validade</label>
+                                <input type="text" class="form-control" id="validade">
+                            </div>
+                            <div class="col-2">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="cvv">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="nomeTitular" class="form-label">Nome do titular</label>
+                                <input type="text" class="form-control" id="nomeTitular">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Pix -->
+            <!-- <div class="collapse" id="collapsePix">
+                <div class="card card-body">
+                    <form>
+                        <div class="col-2">
+                            <label for="inputPix" class="form-label">Chave Pix</label>
+                            <input type="text" class="form-control" id="inputPix">
+                        </div>
+                    </form>
+                </div>
+            </div> -->
+            <!-- Final das expansões -->
+
+        </div>
+
+        <button class="btn btn-primary shadow-none" type="submit">Finalizar a compra</button>
+
+    </div> <!-- /div do container -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
