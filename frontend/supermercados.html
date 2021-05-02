@@ -27,20 +27,22 @@
     <!-- Importando a navbar -->
     <div id="navbar"></div>
 
+    <div class="titulo bg-dark py-3 text-center" style="color: white;">
+        <h3>Supermercados</h3>
+        <form>
+            <input class="form-control mb-4 w-50 mx-auto" type="text" placeholder="Buscar um supermercado">
+        </form>
+    </div>
+
     <!-- Supermercados -->
     <div class="container sup-container py-4 text-center">
-        <h3 class="ofertas-h3">Supermercados</h3>
-
-        <form>
-            <input class="form-control mb-5 w-50 mx-auto" type="text" placeholder="Buscar um supermercado">
-        </form>
-
         <!-- Cards dos itens -->
         <!-- Cada linha contém no máximo 4 cards -->
         <div class="row row-cols-2 row-cols-lg-4 g-3">
+            <!-- Card do supermercado -->
             <div class="col">
                 <!-- Clicar na card redireciona para a página do supermercado-->
-                <a href="./teste-supermercado.html" class="card a-card">
+                <a href="./teste-supermercado.html" class="card a-card" style="border: none;">
                     <div class="card-item sup-card text-center h-100">
                         <img src="./img/produtos/biscoito.jpeg" class="card-img-top" alt="Foto do item">
                         <div class="card-body">
@@ -48,7 +50,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div> <!-- Final da card -->
         </div>
     </div>
 
@@ -63,5 +65,9 @@
         crossorigin="anonymous"></script>
 
 </body>
+
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2021 elComprador</p>
+</footer>
 
 </html>
