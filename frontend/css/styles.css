@@ -4,6 +4,14 @@ body {
     background-color: #F0F4FA;
 }
 
+a {
+    color: #e63946;
+}
+
+a:hover {
+    color: #B61624;
+}
+
 .text-primary {
     color: #457B9D !important;
 }
@@ -46,7 +54,6 @@ body {
 .reg-container {
     border-radius: 10px;
     max-width: 960px;
-    background-color: white;
 }
 
 .reg-container .btn {
@@ -99,7 +106,6 @@ body {
 /* Ofertas */
 .ofertas-container {
     padding-top: 2em;
-    /*background-color: white;*/
 }
 
 .ofertas-h3 {
@@ -139,7 +145,6 @@ body {
 .car-container {
     border-radius: 10px;
     max-width: 960px;
-    background-color: white;
 }
 
 .lista-p {
