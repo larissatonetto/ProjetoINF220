@@ -34,75 +34,41 @@
             <h2 class="fw-bold">Carrinho</h2>
         </div>
 
-        <ul class="list-group list-group-flush car-lista">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-1">
-                        <p class="lista-p">1</p>
-                    </div>
-                    <div class="col-8">
-                        <p class="lista-p">Item A</p>
-                    </div>
-                    <div class="col-3 text-end">
-                        <p class="lista-p">R$ 5,99</p>
-                    </div>
-                </div>
+        <ul class="list-group mb-3"> <!-- Lista de itens -->
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <p class="my-0">1x Nome do produto</p>
+                <small class="text-muted">Supermercado abc</small>
+              </div>
+              <span class="text-muted">RS 2,00</span>
             </li>
-
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-1">
-                        <p class="lista-p">2</p>
-                    </div>
-                    <div class="col-8">
-                        <p class="lista-p">Item B</p>
-                    </div>
-                    <div class="col-3 text-end">
-                        <p class="lista-p">R$ 18,00</p>
-                    </div>
-                </div>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <p class="my-0">2x Nome do produto</p>
+                <small class="text-muted">Supermercado abc</small>
+              </div>
+              <span class="text-muted">R$ 8,00</span>
             </li>
-
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-1">
-                        <p class="lista-p">1</p>
-                    </div>
-                    <div class="col-8">
-                        <p class="lista-p">Item C</p>
-                    </div>
-                    <div class="col-3 text-end">
-                        <p class="lista-p">R$ 3,00</p>
-                    </div>
-                </div>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <p class="my-0">1x Nome do produto</p>
+                <small class="text-muted">Supermercado cde</small>
+              </div>
+              <span class="text-muted">R$ 3,99</span>
             </li>
+            
+            <!-- Total -->
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Taxa de entrega</span>
+                <span class="text-muted">R$ 1,00</span>
+              </li>
 
-        </ul> <!-- Final da lista de itens -->
-
-        <!-- Total -->
-        <ul class="list-group list-group-flush car-lista mt-4">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-3">
-                        <p class="lista-p">Taxa de entrega</p>
-                    </div>
-                    <div class="col-9 text-end">
-                        <p class="lista-p">R$ 1,00</p>
-                    </div>
-                </div>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total</span>
+              <strong>RS 100,99</strong>
             </li>
-
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-3">
-                        <p class="lista-p">Total</p>
-                    </div>
-                    <div class="col-9 text-end">
-                        <p class="lista-p fw-bold">R$ 27,99</p>
-                    </div>
-                </div>
-            </li>
-        </ul> <!-- Final do total -->
+            <!-- Final do total -->
+          </ul> <!-- Final da lista de itens -->
 
         <hr class="my-5">
 
