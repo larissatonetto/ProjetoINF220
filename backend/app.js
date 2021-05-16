@@ -26,6 +26,9 @@ app.set('view engine', 'handlebars')
 app.get('/registro-cliente', (req,res) =>{
     res.render('cliente')
 })
+app.get('/', (req,res) =>{
+    res.render('index')
+})
 
 //CADASTRO DE CLIENTE
 app.post('/addCliente', async(req,res) =>{
@@ -42,6 +45,13 @@ app.post('/addCliente', async(req,res) =>{
     result = await conn.query("INSERT INTO `METODOPAGAMENTO` (`idCliente`) VALUES (?);", [idCliente]);
     const idPagamento = result.insertId
     await conn.query("INSERT INTO `CARTAO` (`idMetodoPagamento`, `tipo`, `numero`, `nomeTitular`, `validade`, `CVV`) VALUES (?, ?, ?, ?, ?, ?);", [idPagamento, tipo, numCartao, nomeTitular, validade, CVV]);
+    res.redirect('/')
 })
+
+
+//CADASTRO PEDIDO
+
+
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
