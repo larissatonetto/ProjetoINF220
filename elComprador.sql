@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 16-Maio-2021 às 02:20
+-- Tempo de geração: 16-Maio-2021 às 02:36
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -71,13 +71,6 @@ CREATE TABLE `CLIENTE` (
   `idUser` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `CLIENTE`
---
-
-INSERT INTO `CLIENTE` (`idCliente`, `idUser`) VALUES
-(3, 8);
-
 -- --------------------------------------------------------
 
 --
@@ -115,7 +108,8 @@ CREATE TABLE `ENDERECO` (
   `rua` varchar(60) NOT NULL,
   `complemento` varchar(60) NOT NULL,
   `geolocalizacao` text NOT NULL,
-  `UF` varchar(2) DEFAULT NULL
+  `UF` varchar(2) DEFAULT NULL,
+  `apelido` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -276,13 +270,6 @@ CREATE TABLE `USUARIO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `USUARIO`
---
-
-INSERT INTO `USUARIO` (`idUser`, `nome`, `sobrenome`, `celular`, `email`, `senha`) VALUES
-(8, 'qweqweqw', 'qweqwe', '31989229456', 'lucaskermessi@gmail.com', 'qweqewqeqw');
-
---
 -- Índices para tabelas despejadas
 --
 
@@ -396,19 +383,19 @@ ALTER TABLE `ADMINISTRADOR`
 -- AUTO_INCREMENT de tabela `CARTAO`
 --
 ALTER TABLE `CARTAO`
-  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `CLIENTE`
 --
 ALTER TABLE `CLIENTE`
-  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `ENDERECO`
 --
 ALTER TABLE `ENDERECO`
-  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `ENTREGA`
@@ -432,7 +419,7 @@ ALTER TABLE `GERENTE`
 -- AUTO_INCREMENT de tabela `METODOPAGAMENTO`
 --
 ALTER TABLE `METODOPAGAMENTO`
-  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `PEDIDO`
@@ -462,7 +449,7 @@ ALTER TABLE `SUPERMERCADO`
 -- AUTO_INCREMENT de tabela `USUARIO`
 --
 ALTER TABLE `USUARIO`
-  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
