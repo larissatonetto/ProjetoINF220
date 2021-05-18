@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 16-Maio-2021 às 02:36
+-- Tempo de geração: 18-Maio-2021 às 02:35
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -136,7 +136,7 @@ CREATE TABLE `ENTREGA` (
 --
 
 CREATE TABLE `ENTREGADOR` (
-  `idEntregrador` bigint(20) NOT NULL,
+  `idEntregador` bigint(20) NOT NULL,
   `idUser` bigint(20) NOT NULL,
   `carteira` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -325,13 +325,19 @@ ALTER TABLE `ENTREGA`
 -- Índices para tabela `ENTREGADOR`
 --
 ALTER TABLE `ENTREGADOR`
-  ADD PRIMARY KEY (`idEntregrador`);
+  ADD PRIMARY KEY (`idEntregador`);
 
 --
 -- Índices para tabela `GERENTE`
 --
 ALTER TABLE `GERENTE`
   ADD PRIMARY KEY (`idGerente`);
+
+--
+-- Índices para tabela `ITEM`
+--
+ALTER TABLE `ITEM`
+  ADD PRIMARY KEY (`idItem`);
 
 --
 -- Índices para tabela `METODOPAGAMENTO`
@@ -364,6 +370,12 @@ ALTER TABLE `SUPERMERCADO`
   ADD PRIMARY KEY (`idSuperMercado`);
 
 --
+-- Índices para tabela `SUPERMERCADO_PRODUTO`
+--
+ALTER TABLE `SUPERMERCADO_PRODUTO`
+  ADD PRIMARY KEY (`idSupermercado_Produto`);
+
+--
 -- Índices para tabela `USUARIO`
 --
 ALTER TABLE `USUARIO`
@@ -383,19 +395,31 @@ ALTER TABLE `ADMINISTRADOR`
 -- AUTO_INCREMENT de tabela `CARTAO`
 --
 ALTER TABLE `CARTAO`
-  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `CLIENTE`
 --
 ALTER TABLE `CLIENTE`
-  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de tabela `CORREDOR`
+--
+ALTER TABLE `CORREDOR`
+  MODIFY `idCorredor` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `DINHEIRO`
+--
+ALTER TABLE `DINHEIRO`
+  MODIFY `idDinheiro` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `ENDERECO`
 --
 ALTER TABLE `ENDERECO`
-  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `ENTREGA`
@@ -407,7 +431,7 @@ ALTER TABLE `ENTREGA`
 -- AUTO_INCREMENT de tabela `ENTREGADOR`
 --
 ALTER TABLE `ENTREGADOR`
-  MODIFY `idEntregrador` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEntregador` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `GERENTE`
@@ -416,10 +440,16 @@ ALTER TABLE `GERENTE`
   MODIFY `idGerente` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `ITEM`
+--
+ALTER TABLE `ITEM`
+  MODIFY `idItem` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `METODOPAGAMENTO`
 --
 ALTER TABLE `METODOPAGAMENTO`
-  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `PEDIDO`
@@ -446,10 +476,16 @@ ALTER TABLE `SUPERMERCADO`
   MODIFY `idSuperMercado` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `SUPERMERCADO_PRODUTO`
+--
+ALTER TABLE `SUPERMERCADO_PRODUTO`
+  MODIFY `idSupermercado_Produto` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `USUARIO`
 --
 ALTER TABLE `USUARIO`
-  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
