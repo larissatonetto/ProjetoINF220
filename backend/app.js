@@ -30,6 +30,7 @@ app.get('/', (req,res) =>{
     res.render('index')
 })
 
+
 //CADASTRO DE CLIENTE
 app.post('/addCliente', async(req,res) =>{
     const conn = await pool.getConnection();
@@ -45,11 +46,36 @@ app.post('/addCliente', async(req,res) =>{
     result = await conn.query("INSERT INTO `METODOPAGAMENTO` (`idCliente`) VALUES (?);", [idCliente]);
     const idPagamento = result.insertId
     await conn.query("INSERT INTO `CARTAO` (`idMetodoPagamento`, `tipo`, `numero`, `nomeTitular`, `validade`, `CVV`) VALUES (?, ?, ?, ?, ?, ?);", [idPagamento, tipo, numCartao, nomeTitular, validade, CVV]);
+
     res.redirect('/')
 })
 
-
 //CADASTRO PEDIDO
+let total = 0;
+app.get('/carrinho/:id', async(req,res) => {
+    const id = req.params.id;
+    const conn = await pool.getConnection();
+    const produtos =[{nome: 'achocolatado',supermercado: 'bretas',preco: 3.00},{nome: 'carne',supermercado: 'bahamas',preco: 15.25}];
+    const ende = await conn.query("SELECT * FROM `ENDERECO` WHERE idCliente = (?);", [id]);
+    const card = await conn.query("SELECT CARTAO.numero, CARTAO.idCartao FROM CARTAO INNER JOIN METODOPAGAMENTO ON CARTAO.idMetodoPagamento = METODOPAGAMENTO.idMetodoPagamento WHERE METODOPAGAMENTO.idCliente = (?) ", [id]);
+    for(let i = 0;i<produtos.length;i++){
+        total += produtos[i].preco
+    }
+    res.render('carrinho', {
+        itens: produtos,
+        valorFinal: total,
+        endereco: ende,
+        cartao: card
+    })
+    
+})
+
+app.post('/addPedido', async(req,res) =>{
+    const conn = await pool.getConnection();
+    const {endereco,cartao} = req.body
+    res.send(cartao)
+})
+
 
 
 
