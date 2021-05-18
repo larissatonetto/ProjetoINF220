@@ -39,7 +39,7 @@
             
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <p class="my-0">1x {{nome}}</p>
+                <p class="my-0">{{nome}}</p>
                 <small class="text-muted">{{supermercado}}</small>
               </div>
               <span class="text-muted">R${{preco}}</span>
@@ -49,7 +49,7 @@
             <!-- Total -->
             <li class="list-group-item d-flex justify-content-between">
                 <span>Taxa de entrega</span>
-                <span class="text-muted">R$ 1,00</span>
+                <span class="text-muted">R${{frete}}</span>
               </li>
 
             <li class="list-group-item d-flex justify-content-between">
@@ -60,7 +60,7 @@
           </ul> <!-- Final da lista de itens -->
 
         <hr class="my-5">
-    <form action="/addPedido" method="POST">
+    <form action="/addPedido/{{idC}}" method="POST">
         <!-- Endereço -->
         <h4 class="mb-4">Endereço</h4>
         <select class="form-select" id="carrinhoEndereco" name="endereco">
@@ -115,13 +115,11 @@
                     <select class="form-select" id="carrinhoCartao" name="cartao">
                         <option selected>Selecione o cartão</option>
                         {{#each cartao}}
-                        <option value={{idCartao}}>{{numero}}</option>
+                        <option value={{idMetodoPagamento}}>{{numero}}</option>
                         {{/each}}
                     </select>
                 </div>
             </div>
-
-            <input type="text" id="fname" name="naosei">
 
             <!-- Pix -->
             <!-- <div class="collapse" id="collapsePix">

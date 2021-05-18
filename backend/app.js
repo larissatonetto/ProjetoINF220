@@ -53,27 +53,39 @@ app.post('/addCliente', async(req,res) =>{
 //CADASTRO PEDIDO
 let total = 0;
 app.get('/carrinho/:id', async(req,res) => {
-    const id = req.params.id;
+    const idCliente = req.params.id;
     const conn = await pool.getConnection();
     const produtos =[{nome: 'achocolatado',supermercado: 'bretas',preco: 3.00},{nome: 'carne',supermercado: 'bahamas',preco: 15.25}];
-    const ende = await conn.query("SELECT * FROM `ENDERECO` WHERE idCliente = (?);", [id]);
-    const card = await conn.query("SELECT CARTAO.numero, CARTAO.idCartao FROM CARTAO INNER JOIN METODOPAGAMENTO ON CARTAO.idMetodoPagamento = METODOPAGAMENTO.idMetodoPagamento WHERE METODOPAGAMENTO.idCliente = (?) ", [id]);
+    const ende = await conn.query("SELECT * FROM `ENDERECO` WHERE idCliente = (?);", [idCliente]);
+    const card = await conn.query("SELECT CARTAO.numero, CARTAO.idCartao, CARTAO.idMetodoPagamento FROM CARTAO INNER JOIN METODOPAGAMENTO ON CARTAO.idMetodoPagamento = METODOPAGAMENTO.idMetodoPagamento WHERE METODOPAGAMENTO.idCliente = (?) ", [idCliente]);
     for(let i = 0;i<produtos.length;i++){
         total += produtos[i].preco
     }
+    const valorEntrega = 5;
+    total += valorEntrega;
     res.render('carrinho', {
         itens: produtos,
         valorFinal: total,
         endereco: ende,
-        cartao: card
+        cartao: card,
+        idC: idCliente,
+        frete: valorEntrega
     })
-    
 })
 
-app.post('/addPedido', async(req,res) =>{
+app.post('/addPedido/:id', async(req,res) =>{
     const conn = await pool.getConnection();
-    const {endereco,cartao} = req.body
-    res.send(cartao)
+    const idCliente = req.params.id;
+    const {endereco,cartao} = req.body;
+    //1 é um idEntregador genérico
+    
+    const result = await conn.query("INSERT INTO `PEDIDO` (`idCliente`, `idEndereco`,`idEntregador`,`idMetodoPagamento`, `dataPedido`, `valorTotal`, `statusPedido`) VALUES (?, ?,?,?,150221,?,?);", [idCliente, endereco,1, cartao,total,'Realizado']);
+    const idPedido = result.insertId
+    await conn.query("UPDATE ENTREGADOR SET carteira = carteira + 5 WHERE idEntregador = (?);", [1]);
+    await conn.query("INSERT INTO ENTREGA (`idEntregador`, `idCliente`, `idPedido`, `idEndereco`, `gorjeta`, `dataEntrega`, `valorEntrega`) VALUES (?,?,?,?,?,?,?);",[1,idCliente,idPedido,endereco,0,'150221',5]);
+
+
+    res.redirect('/');
 })
 
 
