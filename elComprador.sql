@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 18-Maio-2021 às 02:35
+-- Tempo de geração: 18-Maio-2021 às 17:54
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -101,7 +101,7 @@ CREATE TABLE `DINHEIRO` (
 
 CREATE TABLE `ENDERECO` (
   `idEndereco` bigint(20) NOT NULL,
-  `idCliente` bigint(20) NOT NULL,
+  `idCliente` bigint(20) DEFAULT NULL,
   `cidade` varchar(30) NOT NULL,
   `numero` bigint(20) NOT NULL,
   `bairro` varchar(30) NOT NULL,
@@ -129,6 +129,14 @@ CREATE TABLE `ENTREGA` (
   `valorEntrega` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `ENTREGA`
+--
+
+INSERT INTO `ENTREGA` (`idEntrega`, `idEntregador`, `idCliente`, `idPedido`, `idEndereco`, `gorjeta`, `dataEntrega`, `valorEntrega`) VALUES
+(1, 25, 20, 4, 12, 0, '150221', 5),
+(2, 1, 20, 5, 12, 0, '150221', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -140,6 +148,13 @@ CREATE TABLE `ENTREGADOR` (
   `idUser` bigint(20) NOT NULL,
   `carteira` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `ENTREGADOR`
+--
+
+INSERT INTO `ENTREGADOR` (`idEntregador`, `idUser`, `carteira`) VALUES
+(1, 25, 5);
 
 -- --------------------------------------------------------
 
@@ -179,6 +194,13 @@ CREATE TABLE `METODOPAGAMENTO` (
   `idCliente` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `METODOPAGAMENTO`
+--
+
+INSERT INTO `METODOPAGAMENTO` (`idMetodoPagamento`, `idCliente`) VALUES
+(14, 20);
+
 -- --------------------------------------------------------
 
 --
@@ -192,12 +214,23 @@ CREATE TABLE `PEDIDO` (
   `idEndereco` bigint(20) NOT NULL,
   `idMetodoPagamento` bigint(20) DEFAULT NULL,
   `dataPedido` datetime(6) NOT NULL,
-  `dataEntrega` datetime(6) NOT NULL,
+  `dataEntrega` datetime(6) DEFAULT NULL,
   `valorTotal` float NOT NULL,
-  `statusPedido` varchar(20) NOT NULL,
-  `valorRecebido` bigint(20) NOT NULL,
+  `statusPedido` varchar(20) DEFAULT NULL,
+  `valorRecebido` bigint(20) DEFAULT NULL,
   `observacao` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `PEDIDO`
+--
+
+INSERT INTO `PEDIDO` (`idPedido`, `idEntregador`, `idCliente`, `idEndereco`, `idMetodoPagamento`, `dataPedido`, `dataEntrega`, `valorTotal`, `statusPedido`, `valorRecebido`, `observacao`) VALUES
+(1, 25, 20, 12, 14, '2015-02-21 00:00:00.000000', NULL, 18.25, NULL, NULL, NULL),
+(2, 25, 20, 12, 14, '2015-02-21 00:00:00.000000', NULL, 18.25, NULL, NULL, NULL),
+(3, 25, 20, 12, 14, '2015-02-21 00:00:00.000000', NULL, 23.25, NULL, NULL, NULL),
+(4, 25, 20, 12, 14, '2015-02-21 00:00:00.000000', NULL, 23.25, NULL, NULL, NULL),
+(5, 1, 20, 12, 14, '2015-02-21 00:00:00.000000', NULL, 23.25, 'Realizado', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -268,6 +301,13 @@ CREATE TABLE `USUARIO` (
   `email` varchar(60) NOT NULL,
   `senha` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `USUARIO`
+--
+
+INSERT INTO `USUARIO` (`idUser`, `nome`, `sobrenome`, `celular`, `email`, `senha`) VALUES
+(25, 'lucas', 'alo', '31989229456', 'seila@gmail.com', '123456');
 
 --
 -- Índices para tabelas despejadas
@@ -395,13 +435,13 @@ ALTER TABLE `ADMINISTRADOR`
 -- AUTO_INCREMENT de tabela `CARTAO`
 --
 ALTER TABLE `CARTAO`
-  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `CLIENTE`
 --
 ALTER TABLE `CLIENTE`
-  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `CORREDOR`
@@ -419,19 +459,19 @@ ALTER TABLE `DINHEIRO`
 -- AUTO_INCREMENT de tabela `ENDERECO`
 --
 ALTER TABLE `ENDERECO`
-  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `ENTREGA`
 --
 ALTER TABLE `ENTREGA`
-  MODIFY `idEntrega` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEntrega` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `ENTREGADOR`
 --
 ALTER TABLE `ENTREGADOR`
-  MODIFY `idEntregador` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEntregador` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `GERENTE`
@@ -449,13 +489,13 @@ ALTER TABLE `ITEM`
 -- AUTO_INCREMENT de tabela `METODOPAGAMENTO`
 --
 ALTER TABLE `METODOPAGAMENTO`
-  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `PEDIDO`
 --
 ALTER TABLE `PEDIDO`
-  MODIFY `idPedido` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPedido` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `PIX`
@@ -485,7 +525,7 @@ ALTER TABLE `SUPERMERCADO_PRODUTO`
 -- AUTO_INCREMENT de tabela `USUARIO`
 --
 ALTER TABLE `USUARIO`
-  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
