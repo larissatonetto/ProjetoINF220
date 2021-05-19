@@ -1,13 +1,14 @@
 const express = require('express')
 const mariadb = require('mariadb')
-const handlebars = require('express-handlebars')
+const exphbs = require('express-handlebars')
 
 
 const app = express()
 const port = process.env.PORT || 5000
 
 app.use (express.urlencoded({extended: false}))
-app.use(express.json()) 
+app.use(express.json())
+app.use(express.static(__dirname + '/public'));
 
 const pool = mariadb.createPool({
     host: 'localhost',
@@ -19,8 +20,24 @@ const pool = mariadb.createPool({
 
 
 //HandleBars
-app.engine('handlebars',handlebars({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
+var hbs = exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    defaultLayout: 'main',
+    helpers: {
+        breafing: function (val){
+            return val.substring(0, 150);
+        },
+        parserMoney: function(val) {
+            console.log('entrouuu')
+            return parseFloat(val).toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL'
+            })
+        }
+    }
+});
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 //Rotas
 app.get('/registro-cliente', (req,res) =>{
@@ -89,7 +106,25 @@ app.post('/addPedido/:id', async(req,res) =>{
 })
 
 
+app.get('/supermercados', async (req,res) =>{
+    const conn = await pool.getConnection();
+    const superMercados = await conn.query("SELECT  * FROM SUPERMERCADO") || [];
+    console.log(superMercados)
+    res.render('supermercados',{superMercados})
+})
 
+app.get('/supermercados/:id', async (req,res) =>{
+    const conn = await pool.getConnection();
+    const {id} = req.params;
+    let superMercado = await conn.query("SELECT  nome FROM SUPERMERCADO WHERE idSuperMercado = "+id);
+    if(superMercado!=undefined) superMercado = superMercado[0];
+
+    const query = 'SELECT S.idSuperMercado, P.nome,P.descricao, SP.preco, (SP.preco*(1-(SP.desconto/100))) as precoDesconto FROM SUPERMERCADO S INNER JOIN SUPERMERCADO_PRODUTO SP on S.idSuperMercado = SP.idSuperMercado INNER JOIN PRODUTO P on SP.idProduto = P.idProduto WHERE S.idSuperMercado = '+ id
+    console.log(query)
+    const produtos = await conn.query(query) || [];
+
+    res.render('supermercado',{superMercado, produtos})
+})
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

@@ -1,0 +1,31 @@
+<div class="titulo bg-dark py-3 text-center" style="color: white;">
+        <h3>{{superMercado.nome}}</h3>
+        <form>
+            <input class="form-control mb-4 w-50 mx-auto" type="text" placeholder="Buscar um produto ou categoria">
+        </form>
+    </div>
+
+    <!-- Supermercados -->
+    <div class="container container-ofertas py-4 text-center">
+        <!-- Cards dos itens -->
+        <!-- Cada linha contém no máximo 4 cards -->
+        <div class="row row-cols-2 row-cols-lg-4 g-3">
+            {{#each produtos}}
+                <div class="col">   <!-- Card do item -->
+                    <div class="card card-item text-start produto" style="height: 1000px!important;">
+                        <img src="/img/mercados/{{this.foto}}" onerror="this.onerror=null; this.src='/img/not-found-image.png'" class="card-img-top" alt="Foto do item">
+                        <div class="card-body">
+                            <h5 class="card-title fw-normal produto-title" style="color: #142637;min-height: 90px;">{{this.nome}}</h5>
+                            <p style="min-height: 170px;">{{breafing this.descricao}}</p>
+                            <div class="preco mt-4">
+                                <p class="text-muted text-decoration-line-through">{{parserMoney this.preco}}</p>
+                                <p class="fw-bold">{{parserMoney this.precoDesconto}}</p>
+                                <button class="btn w-100 mt-2 btn-primary shadow-none" type="submit">Adicionar ao
+                                    Carrinho</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Final do item -->
+            {{/each}}
+        </div>
+    </div>

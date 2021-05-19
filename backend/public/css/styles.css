@@ -1,0 +1,169 @@
+/* Geral */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F0F4FA;
+}
+
+a {
+    color: #e63946;
+}
+
+a:hover {
+    color: #B61624;
+}
+
+.text-primary {
+    color: #457B9D !important;
+}
+
+.btn-primary {
+    background-color: #E63946 !important;
+}
+
+.container {
+    margin-top: 1.5em;
+    border-radius: 10px;
+}
+
+.bg-dark {
+    background-color: #1d3557 !important;
+}
+
+.btn {
+    background-color: #e63946;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #e63946;
+    transition: 0.1s;
+    transform: translateY(-0.1em);
+}
+
+.btn:active {
+    background-color: #e63946;
+    transition: 0.1s;
+    transform: translateY(+0.1em);
+}
+
+/* Registro */
+.registro-body {
+    padding: 1.5em;
+}
+
+.reg-container {
+    border-radius: 10px;
+    max-width: 960px;
+}
+
+.reg-container .btn {
+    background-color: #E63946;
+    border: none;
+}
+
+.reg-container .btn:hover {
+    background-color: #E94957;
+}
+
+.reg-a {
+    padding-top: 1.5em;
+}
+
+/* Navbar */
+.badge {
+    padding: 0.2em 0.3em 0.2em 0.3em;
+}
+
+.modal-dialog { /* Centraliza o modal de login */
+    top: 30%;
+    margin: 0 auto;
+}
+
+.titulo input {
+    border: none;
+    background-color: #24416B;
+    color: #F0F4FA !important;
+}
+
+.titulo input:active {
+    background-color: #24416B;
+    color: #F0F4FA !important;
+}
+
+.titulo input:valid {
+    background-color: #24416B;
+    color: #F0F4FA !important;
+}
+
+.titulo .form-control:focus { /* Remove o destaque no form ao clicar */
+    box-shadow: none;
+}
+
+.titulo .form-control::placeholder {
+    color: #bac8de !important;
+}
+
+/* Ofertas */
+.ofertas-container {
+    padding-top: 2em;
+}
+
+.ofertas-h3 {
+    margin-bottom: 1.5em;
+}
+
+.preco {
+    line-height: 0.5em;
+}
+
+/* Supermercados */
+.sup-card {
+    border: 2px solid transparent;
+    border-radius: 5px;
+}
+
+.sup-card:hover {
+    border-color: #1d3557;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.a-card {
+    text-decoration: none;
+    color: black;
+}
+
+.a-card:hover {
+    color: black;
+}
+
+/* Carrinho */
+.car-body {
+    padding: 1.5em;
+}
+
+.car-container {
+    border-radius: 10px;
+    max-width: 960px;
+}
+
+.lista-p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.a-metodo {
+    color: black;
+}
+
+.metodo-pag {
+    margin-bottom: 1.5em;
+}
+
+/* Produto */
+.produto-title{
+    min-height: 1000px;
+}
+.produto-description{
+    min-height: 1000px;
+}

@@ -1,0 +1,32 @@
+<div class="titulo bg-dark py-3 text-center" style="color: white;">
+    <h3>Supermercados</h3>
+    <form>
+        <input class="form-control mb-4 w-50 mx-auto" type="text" placeholder="Buscar um supermercado">
+    </form>
+</div>
+
+<!-- Supermercados -->
+<div class="container sup-container py-4 text-center">
+    <!-- Cards dos itens -->
+    <!-- Cada linha contém no máximo 4 cards -->
+    <div class="row row-cols-2 row-cols-lg-4 g-3">
+        <!-- Card do supermercado -->
+        <div class="col">
+            <!-- Clicar na card redireciona para a página do supermercado-->
+
+            {{#each superMercados}}
+                <a href="/supermercados/{{this.idSuperMercado}}" class="card a-card" style="border: none;">
+                    <div class="card-item sup-card text-center h-100">
+                        <img src="/img/mercados/{{this.foto}}" onerror="this.onerror=null; this.src='/img/not-found-image.png'" class="card-img-top" alt="Logo Supermercado">
+                        <div class="card-body">
+                            <h5 class="card-title fw-normal">{{this.nome}}</h5>
+                        </div>
+                    </div>
+                </a>
+            {{/each}}
+        </div> <!-- Final da card -->
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
