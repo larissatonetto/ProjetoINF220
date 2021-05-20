@@ -151,7 +151,7 @@ app.get('/supermercados/:id', async (req,res) =>{
     if(superMercado!==undefined) superMercado = superMercado[0];
     const condOferta = oferta?` AND SP.promocao = ${oferta}`:'';
     const condCorredor = corredor?` AND P.idCorredor = ${corredor}`:'';
-    const query = `SELECT S.idSuperMercado, P.idProduto, P.nome,P.descricao, SP.preco, (SP.preco*(1-(SP.desconto/100))) as precoDesconto, SP.desconto, C.nome as corredor, P.idCorredor FROM SUPERMERCADO S
+    const query = `SELECT S.idSuperMercado, P.idProduto, P.nome,P.descricao, SP.preco, (SP.preco*(1-(SP.desconto/100))) as precoDesconto, SP.desconto, C.nome as corredor, P.idCorredor, P.foto FROM SUPERMERCADO S
         INNER JOIN SUPERMERCADO_PRODUTO SP on S.idSuperMercado = SP.idSuperMercado
         INNER JOIN PRODUTO P on SP.idProduto = P.idProduto
         INNER JOIN CORREDOR C ON C.idCorredor = P.idCorredor
