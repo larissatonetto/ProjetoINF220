@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Maio-2021 às 17:50
+-- Tempo de geração: 20-Maio-2021 às 19:05
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -294,7 +294,7 @@ CREATE TABLE `pedido` (
 
 INSERT INTO `pedido` (`idPedido`, `idEntregador`, `idCliente`, `idEndereco`, `idMetodoPagamento`, `dataPedido`, `dataEntrega`, `valorTotal`, `statusPedido`, `valorRecebido`, `observacao`) VALUES
 (3, 1, 21, 14, NULL, '2021-05-12 10:15:36.000000', '2021-05-12 11:32:36.374000', 150.72, 'Entregue', 160, 'Deixar na portaria'),
-(4, 1, 21, 14, 15, '2021-05-20 10:15:36.000000', '0000-00-00 00:00:00.000000', 450, 'Saiu pra entrega', 0, NULL),
+(4, 1, 21, 14, 15, '2021-05-20 10:15:36.000000', '0000-00-00 00:00:00.000000', 450, 'Saiu para entrega', 0, NULL),
 (5, 2, 24, 17, 17, '2021-05-04 10:48:46.000000', '2021-05-07 10:48:46.000000', 1000, 'Entregue', 1000, NULL),
 (6, 2, 23, 16, 18, '2021-05-03 10:51:26.000000', '2021-05-03 21:43:26.561000', 20, 'Entregue', 20, NULL),
 (7, 1, 23, 15, 14, '2021-05-19 11:36:58.000000', '0000-00-00 00:00:00.000000', 500, 'Saiu para entrega', 0, NULL);
@@ -331,7 +331,7 @@ CREATE TABLE `produto` (
   `nome` varchar(200) NOT NULL,
   `unidade` varchar(20) NOT NULL,
   `descricao` text NOT NULL,
-  `foto` varchar(200) NOT NULL
+  `foto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -339,7 +339,7 @@ CREATE TABLE `produto` (
 --
 
 INSERT INTO `produto` (`idProduto`, `idCorredor`, `nome`, `unidade`, `descricao`, `foto`) VALUES
-(1, 29, 'Carnes e churrasco : Entrevista a Chico Barbosa', '1000', 'Referência em gastronomia no Brasil, Marcos Bassi traz ao leitor suas técnicas de preparo artístico do churrasco, por meio de exposições práticas, didáticas e dinâmicas, em entrevista cedida a Chico Barbosa. Neste guia, revelam-se a trajetória e o ofício deste grande artesão da carne a um público que vai do consumidor de carnes ou churrasqueiro de fim de semana ao açougueiro ansioso por aprofundar seus domínios. Não se trata de idealizar um churrasco complexo e inatingível, com instrumentos e produtos raros e altamente especializados, mas sim de tornar possível a realização do evento por qualquer pessoa, especialista ou não. Marcos Bassi destaca aqui os principais cortes utilizados em seu renomado restaurante, O Templo da Carne, e transmite aos leitores o conhecimento adquirido em décadas de prática no trato com a carne.', 'https://www.extra-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1629069754'),
+(1, 29, 'Chã de Dentro', '1', 'Chã de Dentro (Coxão Mole) bovina fresca embalada para preparo imediato ou congelamento.\r\n\r\nPeso por embalagem: 1 kg', 'carne.png'),
 (2, 26, 'Pães', '10000', 'Pão Rico em Proteína Mestemacher O dobro de porteina e 80% menos carboidratos que o pão integral padrão.\n\nIdeal para dietas ricas em proteína.\n\nIngredientes:\n\nÁgua, mix de proteínas 12% (proteína de trigo, proteína de ervilha), linhaça marrom, farinha de centeio integral, farelo de soja 6%, farinha de soja 3%, farelo de trigo, linhaça dourada, semente de girassol, gergelim, fibra de aveia, sal, soro em pó enriquecido com proteína, levedura, regulador de acidez acetato de sódio.\n\nContéM Glúten\n\nContéM Lactose\n\nAlégicos:\n\nContém trigo, centeio, soja, aveia e derivado de leite.\n', 'paes.png'),
 (3, 27, 'Arroz Branco Agulhinha Zaeli 5kg Pacote', '10000', 'Arroz\n\n \n\nCaracterística: Branco Agulhinha\n\nMarca: Zaeli\n\nTamanho: 5kg\n\nEmbalagem: Pacote', 'arroz.png'),
 (4, 28, 'Alho Twist Secalux 591101', '10000', 'O Triturador de Alho Twist é fácil de usar e corta os dentes de alho em poucos segundos. Basta encaixar as duas partes e girar uma no sentido horário e a outra no anti-horário. Um produto feito em material resistente e com a praticidade Secalux', 'triturador.png');
@@ -619,7 +619,7 @@ ALTER TABLE `pix`
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idProduto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idProduto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `supermercado`
