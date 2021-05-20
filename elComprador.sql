@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 20, 2021 at 01:51 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- Host: 127.0.0.1
+-- Tempo de geração: 20-Maio-2021 às 16:47
+-- Versão do servidor: 10.4.18-MariaDB
+-- versão do PHP: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,16 +18,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `elComprador`
+-- Banco de dados: `elcomprador`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ADMINISTRACAOSUPERMERCADO`
+-- Estrutura da tabela `administracaosupermercado`
 --
 
-CREATE TABLE `ADMINISTRACAOSUPERMERCADO` (
+CREATE TABLE `administracaosupermercado` (
   `idAdministracaoSupermercado` bigint(20) NOT NULL,
   `idSuperMercado` bigint(20) NOT NULL,
   `idGerente` bigint(20) NOT NULL
@@ -36,10 +36,10 @@ CREATE TABLE `ADMINISTRACAOSUPERMERCADO` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ADMINISTRADOR`
+-- Estrutura da tabela `administrador`
 --
 
-CREATE TABLE `ADMINISTRADOR` (
+CREATE TABLE `administrador` (
   `idAdministrador` bigint(20) NOT NULL,
   `idUser` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -47,10 +47,10 @@ CREATE TABLE `ADMINISTRADOR` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `CARTAO`
+-- Estrutura da tabela `cartao`
 --
 
-CREATE TABLE `CARTAO` (
+CREATE TABLE `cartao` (
   `idCartao` bigint(20) NOT NULL,
   `idMetodoPagamento` bigint(20) NOT NULL,
   `tipo` varchar(20) NOT NULL,
@@ -61,48 +61,52 @@ CREATE TABLE `CARTAO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `CARTAO`
+-- Extraindo dados da tabela `cartao`
 --
 
-INSERT INTO `CARTAO` (`idCartao`, `idMetodoPagamento`, `tipo`, `numero`, `nomeTitular`, `validade`, `CVV`) VALUES
+INSERT INTO `cartao` (`idCartao`, `idMetodoPagamento`, `tipo`, `numero`, `nomeTitular`, `validade`, `CVV`) VALUES
 (14, 14, 'Débito', 5534564985035517, 'Gabriel B Soares', '12/2018', 111),
-(15, 15, 'Débito', 100000, 'Antonio Gonçalves', '02/2018', 103);
+(15, 15, 'Débito', 100000, 'Antonio Gonçalves', '02/2018', 103),
+(16, 16, 'Crédito', 5555666677778884, 'Jéssica S Silveira', '03/2028', 312);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `CLIENTE`
+-- Estrutura da tabela `cliente`
 --
 
-CREATE TABLE `CLIENTE` (
+CREATE TABLE `cliente` (
   `idCliente` bigint(20) NOT NULL,
   `idUser` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `CLIENTE`
+-- Extraindo dados da tabela `cliente`
 --
 
-INSERT INTO `CLIENTE` (`idCliente`, `idUser`) VALUES
+INSERT INTO `cliente` (`idCliente`, `idUser`) VALUES
 (20, 26),
-(21, 27);
+(21, 27),
+(22, 28),
+(23, 29),
+(24, 31);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `CORREDOR`
+-- Estrutura da tabela `corredor`
 --
 
-CREATE TABLE `CORREDOR` (
+CREATE TABLE `corredor` (
   `idCorredor` bigint(20) NOT NULL,
   `nome` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `CORREDOR`
+-- Extraindo dados da tabela `corredor`
 --
 
-INSERT INTO `CORREDOR` (`idCorredor`, `nome`) VALUES
+INSERT INTO `corredor` (`idCorredor`, `nome`) VALUES
 (26, 'Café da manhã e lanches'),
 (27, 'Produtos de mercearia'),
 (28, 'Produtos de hortifrúti'),
@@ -115,10 +119,10 @@ INSERT INTO `CORREDOR` (`idCorredor`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `DINHEIRO`
+-- Estrutura da tabela `dinheiro`
 --
 
-CREATE TABLE `DINHEIRO` (
+CREATE TABLE `dinheiro` (
   `idDinheiro` bigint(20) NOT NULL,
   `idMetodoPagamento` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -126,10 +130,10 @@ CREATE TABLE `DINHEIRO` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ENDERECO`
+-- Estrutura da tabela `endereco`
 --
 
-CREATE TABLE `ENDERECO` (
+CREATE TABLE `endereco` (
   `idEndereco` bigint(20) NOT NULL,
   `idCliente` bigint(20) DEFAULT NULL,
   `cidade` varchar(30) NOT NULL,
@@ -143,21 +147,25 @@ CREATE TABLE `ENDERECO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ENDERECO`
+-- Extraindo dados da tabela `endereco`
 --
 
-INSERT INTO `ENDERECO` (`idEndereco`, `idCliente`, `cidade`, `numero`, `bairro`, `rua`, `complemento`, `geolocalizacao`, `UF`, `apelido`) VALUES
+INSERT INTO `endereco` (`idEndereco`, `idCliente`, `cidade`, `numero`, `bairro`, `rua`, `complemento`, `geolocalizacao`, `UF`, `apelido`) VALUES
 (12, 25, 'Viçosa', 0, 'Lourdes', 'Tabelião Machado', '', '', 'MG', 'Minha Casa'),
 (13, NULL, 'Viçosa', 123, 'Lourdes', 'Tabelião Machado', '', '', 'MG', NULL),
-(14, 21, 'Viçosa', 11, 'Lourdes', 'Tabelião Machado', '', 'A', 'MG', 'Casa');
+(14, 21, 'Viçosa', 11, 'Lourdes', 'Tabelião Machado', '', 'A', 'MG', 'Casa'),
+(15, 23, 'Viçosa', 1000, 'Centro', 'Av PH Rolfs', '', '-26.9993, 16.9976', 'MG', 'Casa'),
+(16, 23, 'Viçosa', 23, 'Centro', 'Av PH Rolfs', '', '51.1616, -173.6756', 'MG', 'Trabalho'),
+(17, 24, 'Contagem', 906, 'Vila Cristina', 'Beco da Paz', 'Apartamento 71', '-41.2565, -9.1641', 'MG', 'Casa'),
+(18, NULL, 'Viçosa', 380, 'Centro', 'Av Milton Bandeira', '', '-12.3042834, 20.2392134', 'MG', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ENTREGA`
+-- Estrutura da tabela `entrega`
 --
 
-CREATE TABLE `ENTREGA` (
+CREATE TABLE `entrega` (
   `idEntrega` bigint(20) NOT NULL,
   `idEntregador` bigint(20) NOT NULL,
   `idCliente` bigint(20) NOT NULL,
@@ -168,32 +176,42 @@ CREATE TABLE `ENTREGA` (
   `valorEntrega` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `entrega`
+--
+
+INSERT INTO `entrega` (`idEntrega`, `idEntregador`, `idCliente`, `idPedido`, `idEndereco`, `gorjeta`, `dataEntrega`, `valorEntrega`) VALUES
+(1, 1, 21, 3, 14, 10, '2021-05-12 11:32:36', 10),
+(2, 2, 24, 5, 17, 5, '2021-05-07 10:48:46', 0),
+(3, 2, 23, 6, 16, 8, '2021-05-03 21:43:26', 6);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ENTREGADOR`
+-- Estrutura da tabela `entregador`
 --
 
-CREATE TABLE `ENTREGADOR` (
+CREATE TABLE `entregador` (
   `idEntregador` bigint(20) NOT NULL,
   `idUser` bigint(20) NOT NULL,
   `carteira` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ENTREGADOR`
+-- Extraindo dados da tabela `entregador`
 --
 
-INSERT INTO `ENTREGADOR` (`idEntregador`, `idUser`, `carteira`) VALUES
-(1, 25, 0);
+INSERT INTO `entregador` (`idEntregador`, `idUser`, `carteira`) VALUES
+(1, 25, 0),
+(2, 30, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `GERENTE`
+-- Estrutura da tabela `gerente`
 --
 
-CREATE TABLE `GERENTE` (
+CREATE TABLE `gerente` (
   `idGerente` bigint(20) NOT NULL,
   `idUser` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -201,10 +219,10 @@ CREATE TABLE `GERENTE` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ITEM`
+-- Estrutura da tabela `item`
 --
 
-CREATE TABLE `ITEM` (
+CREATE TABLE `item` (
   `idItem` bigint(20) NOT NULL,
   `idSuperMercado` bigint(20) NOT NULL,
   `idProduto` bigint(20) NOT NULL,
@@ -214,32 +232,49 @@ CREATE TABLE `ITEM` (
   `preco` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `item`
+--
+
+INSERT INTO `item` (`idItem`, `idSuperMercado`, `idProduto`, `idPedido`, `promocao`, `desconto`, `preco`) VALUES
+(1, 1, 1, 3, 0, 10, 10),
+(2, 1, 2, 4, 1, 10, 10),
+(3, 1, 3, 3, 0, NULL, 10),
+(4, 1, 2, 3, 0, 10, 10),
+(5, 2, 3, 5, 0, 2, 5),
+(6, 2, 4, 5, 1, 3, 8),
+(7, 2, 4, 7, 1, 3, 8),
+(8, 1, 2, 7, 1, 10, 10);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `METODOPAGAMENTO`
+-- Estrutura da tabela `metodopagamento`
 --
 
-CREATE TABLE `METODOPAGAMENTO` (
+CREATE TABLE `metodopagamento` (
   `idMetodoPagamento` bigint(20) NOT NULL,
   `idCliente` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `METODOPAGAMENTO`
+-- Extraindo dados da tabela `metodopagamento`
 --
 
-INSERT INTO `METODOPAGAMENTO` (`idMetodoPagamento`, `idCliente`) VALUES
+INSERT INTO `metodopagamento` (`idMetodoPagamento`, `idCliente`) VALUES
 (14, 20),
-(15, 21);
+(15, 21),
+(16, 23),
+(17, 24),
+(18, 23);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PEDIDO`
+-- Estrutura da tabela `pedido`
 --
 
-CREATE TABLE `PEDIDO` (
+CREATE TABLE `pedido` (
   `idPedido` bigint(20) NOT NULL,
   `idEntregador` bigint(20) NOT NULL,
   `idCliente` bigint(20) NOT NULL,
@@ -253,25 +288,44 @@ CREATE TABLE `PEDIDO` (
   `observacao` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `pedido`
+--
+
+INSERT INTO `pedido` (`idPedido`, `idEntregador`, `idCliente`, `idEndereco`, `idMetodoPagamento`, `dataPedido`, `dataEntrega`, `valorTotal`, `statusPedido`, `valorRecebido`, `observacao`) VALUES
+(3, 1, 21, 14, NULL, '2021-05-12 10:15:36.000000', '2021-05-12 11:32:36.374000', 150.72, 'Entregue', 160, 'Deixar na portaria'),
+(4, 1, 21, 14, 15, '2021-05-20 10:15:36.000000', '0000-00-00 00:00:00.000000', 450, 'Saiu pra entrega', 0, NULL),
+(5, 2, 24, 17, 17, '2021-05-04 10:48:46.000000', '2021-05-07 10:48:46.000000', 1000, 'Entregue', 1000, NULL),
+(6, 2, 23, 16, 18, '2021-05-03 10:51:26.000000', '2021-05-03 21:43:26.561000', 20, 'Entregue', 20, NULL),
+(7, 1, 23, 15, 14, '2021-05-19 11:36:58.000000', '0000-00-00 00:00:00.000000', 500, 'Saiu para entrega', 0, NULL);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PIX`
+-- Estrutura da tabela `pix`
 --
 
-CREATE TABLE `PIX` (
+CREATE TABLE `pix` (
   `idPix` bigint(20) NOT NULL,
   `idMetodoPagamento` bigint(20) NOT NULL,
   `chave` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `pix`
+--
+
+INSERT INTO `pix` (`idPix`, `idMetodoPagamento`, `chave`) VALUES
+(1, 17, '?LXieOCc#:9'),
+(2, 18, ':VGk}N12]qL');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `PRODUTO`
+-- Estrutura da tabela `produto`
 --
 
-CREATE TABLE `PRODUTO` (
+CREATE TABLE `produto` (
   `idProduto` bigint(20) NOT NULL,
   `idCorredor` bigint(20) NOT NULL,
   `nome` varchar(200) NOT NULL,
@@ -281,10 +335,10 @@ CREATE TABLE `PRODUTO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `PRODUTO`
+-- Extraindo dados da tabela `produto`
 --
 
-INSERT INTO `PRODUTO` (`idProduto`, `idCorredor`, `nome`, `unidade`, `descricao`, `foto`) VALUES
+INSERT INTO `produto` (`idProduto`, `idCorredor`, `nome`, `unidade`, `descricao`, `foto`) VALUES
 (1, 29, 'Carnes e churrasco : Entrevista a Chico Barbosa', '1000', 'Referência em gastronomia no Brasil, Marcos Bassi traz ao leitor suas técnicas de preparo artístico do churrasco, por meio de exposições práticas, didáticas e dinâmicas, em entrevista cedida a Chico Barbosa. Neste guia, revelam-se a trajetória e o ofício deste grande artesão da carne a um público que vai do consumidor de carnes ou churrasqueiro de fim de semana ao açougueiro ansioso por aprofundar seus domínios. Não se trata de idealizar um churrasco complexo e inatingível, com instrumentos e produtos raros e altamente especializados, mas sim de tornar possível a realização do evento por qualquer pessoa, especialista ou não. Marcos Bassi destaca aqui os principais cortes utilizados em seu renomado restaurante, O Templo da Carne, e transmite aos leitores o conhecimento adquirido em décadas de prática no trato com a carne.', 'https://www.extra-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1629069754'),
 (2, 26, 'Pães', '10000', 'Pão Rico em Proteína Mestemacher O dobro de porteina e 80% menos carboidratos que o pão integral padrão.\n\nIdeal para dietas ricas em proteína.\n\nIngredientes:\n\nÁgua, mix de proteínas 12% (proteína de trigo, proteína de ervilha), linhaça marrom, farinha de centeio integral, farelo de soja 6%, farinha de soja 3%, farelo de trigo, linhaça dourada, semente de girassol, gergelim, fibra de aveia, sal, soro em pó enriquecido com proteína, levedura, regulador de acidez acetato de sódio.\n\nContéM Glúten\n\nContéM Lactose\n\nAlégicos:\n\nContém trigo, centeio, soja, aveia e derivado de leite.\n', 'https://www.extra-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1432947603'),
 (3, 27, 'Arroz Branco Agulhinha Zaeli 5kg Pacote', '10000', 'Arroz\n\n \n\nCaracterística: Branco Agulhinha\n\nMarca: Zaeli\n\nTamanho: 5kg\n\nEmbalagem: Pacote', 'https://www.extra-imagens.com.br/Control/ArquivoExibir.aspx?IdArquivo=1427392559'),
@@ -293,10 +347,10 @@ INSERT INTO `PRODUTO` (`idProduto`, `idCorredor`, `nome`, `unidade`, `descricao`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `SUPERMERCADO`
+-- Estrutura da tabela `supermercado`
 --
 
-CREATE TABLE `SUPERMERCADO` (
+CREATE TABLE `supermercado` (
   `idSuperMercado` bigint(20) NOT NULL,
   `idEndereco` bigint(20) NOT NULL,
   `cnpj` bigint(20) NOT NULL,
@@ -305,19 +359,20 @@ CREATE TABLE `SUPERMERCADO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `SUPERMERCADO`
+-- Extraindo dados da tabela `supermercado`
 --
 
-INSERT INTO `SUPERMERCADO` (`idSuperMercado`, `idEndereco`, `cnpj`, `nome`, `foto`) VALUES
-(1, 13, 38317220000116, 'Supermercado Amantino', 'amantino.png');
+INSERT INTO `supermercado` (`idSuperMercado`, `idEndereco`, `cnpj`, `nome`, `foto`) VALUES
+(1, 13, 38317220000116, 'Supermercado Amantino', 'amantino.png'),
+(2, 18, 16876865000156, 'Supermercado Bahamas', 'bahamas.png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `SUPERMERCADO_PRODUTO`
+-- Estrutura da tabela `supermercado_produto`
 --
 
-CREATE TABLE `SUPERMERCADO_PRODUTO` (
+CREATE TABLE `supermercado_produto` (
   `idSupermercado_Produto` bigint(20) NOT NULL,
   `idSuperMercado` bigint(20) NOT NULL,
   `idProduto` bigint(20) NOT NULL,
@@ -327,22 +382,24 @@ CREATE TABLE `SUPERMERCADO_PRODUTO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `SUPERMERCADO_PRODUTO`
+-- Extraindo dados da tabela `supermercado_produto`
 --
 
-INSERT INTO `SUPERMERCADO_PRODUTO` (`idSupermercado_Produto`, `idSuperMercado`, `idProduto`, `desconto`, `preco`, `promocao`) VALUES
+INSERT INTO `supermercado_produto` (`idSupermercado_Produto`, `idSuperMercado`, `idProduto`, `desconto`, `preco`, `promocao`) VALUES
 (1, 1, 1, 10, 10, 0),
 (2, 1, 2, 10, 10, 0),
 (3, 1, 3, 10, 10, 0),
-(4, 1, 4, 10, 10, 0);
+(4, 1, 4, 10, 10, 0),
+(5, 2, 3, 2, 5, 0),
+(6, 2, 4, 3, 8, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `USUARIO`
+-- Estrutura da tabela `usuario`
 --
 
-CREATE TABLE `USUARIO` (
+CREATE TABLE `usuario` (
   `idUser` bigint(20) NOT NULL,
   `nome` varchar(256) NOT NULL,
   `sobrenome` varchar(256) NOT NULL,
@@ -352,231 +409,235 @@ CREATE TABLE `USUARIO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `USUARIO`
+-- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `USUARIO` (`idUser`, `nome`, `sobrenome`, `celular`, `email`, `senha`) VALUES
+INSERT INTO `usuario` (`idUser`, `nome`, `sobrenome`, `celular`, `email`, `senha`) VALUES
 (25, 'Gabriel', 'Bezerra Soares', '32999749830', 'gabriel.b.soares@ufv.com.br', 'Senha123!'),
 (26, 'Joana', 'Gonçalves Dias', '34929749830', 'joana.g.dias@ufv.com.br', 'Senha123!'),
-(27, 'Antonio', 'Gonçalves Costas', '32999749830', 'antoniogc@gmail.com', '1234');
+(27, 'Antonio', 'Gonçalves Costas', '32999749830', 'antoniogc@gmail.com', '1234'),
+(28, 'Lucca', 'Vicente Dias', '38997495294', 'luccavicentedias@terra.com.br', '12345'),
+(29, 'Jéssica', 'Sandra Silveira', '38995939576', 'jessica@gmail.com', 'aPDohKTw2P'),
+(30, 'Yago', 'Thales Freitas', '32999144474', 'yagothalesfreitas@hotmail.com', 'JQDT2hs5IT'),
+(31, 'Letícia', 'Pietra da Rosa', '31989241245', 'lleticiapietradarosa@alwan.com.br', 'K1fE0elszJ');
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `ADMINISTRACAOSUPERMERCADO`
+-- Índices para tabela `administracaosupermercado`
 --
-ALTER TABLE `ADMINISTRACAOSUPERMERCADO`
+ALTER TABLE `administracaosupermercado`
   ADD PRIMARY KEY (`idAdministracaoSupermercado`);
 
 --
--- Indexes for table `ADMINISTRADOR`
+-- Índices para tabela `administrador`
 --
-ALTER TABLE `ADMINISTRADOR`
+ALTER TABLE `administrador`
   ADD PRIMARY KEY (`idAdministrador`);
 
 --
--- Indexes for table `CARTAO`
+-- Índices para tabela `cartao`
 --
-ALTER TABLE `CARTAO`
+ALTER TABLE `cartao`
   ADD PRIMARY KEY (`idCartao`);
 
 --
--- Indexes for table `CLIENTE`
+-- Índices para tabela `cliente`
 --
-ALTER TABLE `CLIENTE`
+ALTER TABLE `cliente`
   ADD PRIMARY KEY (`idCliente`);
 
 --
--- Indexes for table `CORREDOR`
+-- Índices para tabela `corredor`
 --
-ALTER TABLE `CORREDOR`
+ALTER TABLE `corredor`
   ADD PRIMARY KEY (`idCorredor`);
 
 --
--- Indexes for table `DINHEIRO`
+-- Índices para tabela `dinheiro`
 --
-ALTER TABLE `DINHEIRO`
+ALTER TABLE `dinheiro`
   ADD PRIMARY KEY (`idDinheiro`);
 
 --
--- Indexes for table `ENDERECO`
+-- Índices para tabela `endereco`
 --
-ALTER TABLE `ENDERECO`
+ALTER TABLE `endereco`
   ADD PRIMARY KEY (`idEndereco`);
 
 --
--- Indexes for table `ENTREGA`
+-- Índices para tabela `entrega`
 --
-ALTER TABLE `ENTREGA`
+ALTER TABLE `entrega`
   ADD PRIMARY KEY (`idEntrega`);
 
 --
--- Indexes for table `ENTREGADOR`
+-- Índices para tabela `entregador`
 --
-ALTER TABLE `ENTREGADOR`
+ALTER TABLE `entregador`
   ADD PRIMARY KEY (`idEntregador`);
 
 --
--- Indexes for table `GERENTE`
+-- Índices para tabela `gerente`
 --
-ALTER TABLE `GERENTE`
+ALTER TABLE `gerente`
   ADD PRIMARY KEY (`idGerente`);
 
 --
--- Indexes for table `ITEM`
+-- Índices para tabela `item`
 --
-ALTER TABLE `ITEM`
+ALTER TABLE `item`
   ADD PRIMARY KEY (`idItem`);
 
 --
--- Indexes for table `METODOPAGAMENTO`
+-- Índices para tabela `metodopagamento`
 --
-ALTER TABLE `METODOPAGAMENTO`
+ALTER TABLE `metodopagamento`
   ADD PRIMARY KEY (`idMetodoPagamento`);
 
 --
--- Indexes for table `PEDIDO`
+-- Índices para tabela `pedido`
 --
-ALTER TABLE `PEDIDO`
+ALTER TABLE `pedido`
   ADD PRIMARY KEY (`idPedido`);
 
 --
--- Indexes for table `PIX`
+-- Índices para tabela `pix`
 --
-ALTER TABLE `PIX`
+ALTER TABLE `pix`
   ADD PRIMARY KEY (`idPix`);
 
 --
--- Indexes for table `PRODUTO`
+-- Índices para tabela `produto`
 --
-ALTER TABLE `PRODUTO`
+ALTER TABLE `produto`
   ADD PRIMARY KEY (`idProduto`);
 
 --
--- Indexes for table `SUPERMERCADO`
+-- Índices para tabela `supermercado`
 --
-ALTER TABLE `SUPERMERCADO`
+ALTER TABLE `supermercado`
   ADD PRIMARY KEY (`idSuperMercado`);
 
 --
--- Indexes for table `SUPERMERCADO_PRODUTO`
+-- Índices para tabela `supermercado_produto`
 --
-ALTER TABLE `SUPERMERCADO_PRODUTO`
+ALTER TABLE `supermercado_produto`
   ADD PRIMARY KEY (`idSupermercado_Produto`);
 
 --
--- Indexes for table `USUARIO`
+-- Índices para tabela `usuario`
 --
-ALTER TABLE `USUARIO`
+ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUser`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `ADMINISTRADOR`
+-- AUTO_INCREMENT de tabela `administrador`
 --
-ALTER TABLE `ADMINISTRADOR`
+ALTER TABLE `administrador`
   MODIFY `idAdministrador` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `CARTAO`
+-- AUTO_INCREMENT de tabela `cartao`
 --
-ALTER TABLE `CARTAO`
-  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `cartao`
+  MODIFY `idCartao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `CLIENTE`
+-- AUTO_INCREMENT de tabela `cliente`
 --
-ALTER TABLE `CLIENTE`
-  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+ALTER TABLE `cliente`
+  MODIFY `idCliente` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `CORREDOR`
+-- AUTO_INCREMENT de tabela `corredor`
 --
-ALTER TABLE `CORREDOR`
+ALTER TABLE `corredor`
   MODIFY `idCorredor` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
--- AUTO_INCREMENT for table `DINHEIRO`
+-- AUTO_INCREMENT de tabela `dinheiro`
 --
-ALTER TABLE `DINHEIRO`
+ALTER TABLE `dinheiro`
   MODIFY `idDinheiro` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ENDERECO`
+-- AUTO_INCREMENT de tabela `endereco`
 --
-ALTER TABLE `ENDERECO`
-  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+ALTER TABLE `endereco`
+  MODIFY `idEndereco` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `ENTREGA`
+-- AUTO_INCREMENT de tabela `entrega`
 --
-ALTER TABLE `ENTREGA`
-  MODIFY `idEntrega` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `entrega`
+  MODIFY `idEntrega` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `ENTREGADOR`
+-- AUTO_INCREMENT de tabela `entregador`
 --
-ALTER TABLE `ENTREGADOR`
-  MODIFY `idEntregador` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `entregador`
+  MODIFY `idEntregador` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `GERENTE`
+-- AUTO_INCREMENT de tabela `gerente`
 --
-ALTER TABLE `GERENTE`
+ALTER TABLE `gerente`
   MODIFY `idGerente` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `ITEM`
+-- AUTO_INCREMENT de tabela `item`
 --
-ALTER TABLE `ITEM`
-  MODIFY `idItem` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `item`
+  MODIFY `idItem` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `METODOPAGAMENTO`
+-- AUTO_INCREMENT de tabela `metodopagamento`
 --
-ALTER TABLE `METODOPAGAMENTO`
-  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `metodopagamento`
+  MODIFY `idMetodoPagamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `PEDIDO`
+-- AUTO_INCREMENT de tabela `pedido`
 --
-ALTER TABLE `PEDIDO`
-  MODIFY `idPedido` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `pedido`
+  MODIFY `idPedido` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `PIX`
+-- AUTO_INCREMENT de tabela `pix`
 --
-ALTER TABLE `PIX`
-  MODIFY `idPix` bigint(20) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `pix`
+  MODIFY `idPix` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `PRODUTO`
+-- AUTO_INCREMENT de tabela `produto`
 --
-ALTER TABLE `PRODUTO`
+ALTER TABLE `produto`
   MODIFY `idProduto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `SUPERMERCADO`
+-- AUTO_INCREMENT de tabela `supermercado`
 --
-ALTER TABLE `SUPERMERCADO`
-  MODIFY `idSuperMercado` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `supermercado`
+  MODIFY `idSuperMercado` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `SUPERMERCADO_PRODUTO`
+-- AUTO_INCREMENT de tabela `supermercado_produto`
 --
-ALTER TABLE `SUPERMERCADO_PRODUTO`
-  MODIFY `idSupermercado_Produto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `supermercado_produto`
+  MODIFY `idSupermercado_Produto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `USUARIO`
+-- AUTO_INCREMENT de tabela `usuario`
 --
-ALTER TABLE `USUARIO`
-  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+ALTER TABLE `usuario`
+  MODIFY `idUser` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

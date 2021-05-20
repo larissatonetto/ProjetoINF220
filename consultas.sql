@@ -1,53 +1,55 @@
 -- a) Consulta de produtos por corredor, depois de selecionado o supermercado
-SELECT P.nome, descricao, C.nome, unidade, SP.preco
+SELECT P.nome, descricao, C.nome AS 'Corredor', unidade, SP.preco
 FROM SUPERMERCADO_PRODUTO SP
 INNER JOIN PRODUTO P
     ON SP.idProduto = P.idProduto
     INNER JOIN CORREDOR C
         ON C.idCorredor = P.idCorredor
-WHERE idSuperMercado = 1
+WHERE idSuperMercado = 1 -- Escolher o supermercado aqui
 ORDER BY C.nome
 
 -- b) Consulta a pedidos dos clientes, status, valor total, etc
-SELECT idPedido, UC.nome, UE.nome, statusPedido, valorTotal, dataPedido, dataEntrega,
+SELECT idPedido, UC.nome AS 'cliente', UE.nome AS 'Entregador', statusPedido, valorTotal, dataPedido,
 CASE
     WHEN PD.idMetodoPagamento IS NULL THEN 'Dinheiro'
-    WHEN PIX.idPix IS NOT NULL THEN PIX.idPIX
-    ELSE CARTAO.idCartao
+    WHEN PIX.idPix IS NOT NULL THEN PIX.chave
+    ELSE CARTAO.numero
 END AS 'Metodo de Pagamento'
 FROM PEDIDO PD
 INNER JOIN ENTREGADOR E
-    ON PD.idEntregador = E.idEntregrador
+    ON PD.idEntregador = E.idEntregador
     INNER JOIN USUARIO UE
         ON UE.idUser = E.idUser
 INNER JOIN CLIENTE C
     ON PD.idCliente = C.idCliente
     INNER JOIN USUARIO UC
         ON UC.idUser = C.idUser
-INNER JOIN PIX
+LEFT JOIN PIX
     ON PIX.idMetodoPagamento = PD.idMetodoPagamento
-INNER JOIN CARTAO
+LEFT JOIN CARTAO
     ON CARTAO.idMetodoPagamento = PD.idMetodoPagamento
 
 -- c) Relatório Financeiro por supermercado
-SELECT S.nome, P.nome, preco, desconto, promocao
+SELECT S.nome AS 'Supermercado', P.nome AS 'Produto vendido', I.idPedido, preco, desconto, promocao
 FROM ITEM I
 INNER JOIN SUPERMERCADO S
     ON I.idSuperMercado = S.idSuperMercado
 INNER JOIN PRODUTO P
     ON P.idProduto = I.idProduto
-GROUP BY S.nome
+ORDER BY S.nome, I.idPedido
 
 -- d) Relatório de Produtos mais vendidos, por corredor
-SELECT P.nome, COUNT(I.idProduto)
+SELECT P.nome AS 'Produto', C.nome AS 'Corredor', COUNT(I.idProduto) AS 'Quantidade'
 FROM ITEM I
 INNER JOIN PRODUTO P
     ON P.idProduto = I.idProduto
+    INNER JOIN CORREDOR C
+    	ON C.idCorredor = P.idCorredor
 GROUP BY I.idProduto
-ORDER BY COUNT(I.idProduto) DESC
+ORDER BY COUNT(I.idProduto) DESC, C.nome
 
 -- e) Listar clientes com maior volume de pedidos
-SELECT U.nome, COUNT(P.idCliente)
+SELECT U.nome AS 'Cliente', COUNT(P.idCliente) AS 'Pedidos'
 FROM PEDIDO P
 INNER JOIN CLIENTE C
     ON P.idCliente = C.idCliente
@@ -57,28 +59,28 @@ GROUP BY P.idCliente
 ORDER BY COUNT(P.idCliente) DESC
 
 -- f) Listar CE com extrato de movimentação de sua carteira
-SELECT E.idEntregrador, U.nome, valorEntrega, gorjeta, valorEntrega + gorjeta AS 'Total'
+SELECT E.idEntregador, En.idPedido, U.nome, valorEntrega, gorjeta, valorEntrega + gorjeta AS 'Total'
 FROM ENTREGA En
 INNER JOIN ENTREGADOR E
-    ON En.idEntregador = E.idEntregrador
+    ON En.idEntregador = E.idEntregador
     INNER JOIN USUARIO U
         ON U.idUser = E.idUser
-GROUP BY idEntregrador
+ORDER BY idEntregador
 
 -- g) Listar pedidos por CE
-SELECT P.idEntregador, U.nome, idPedido
+SELECT E.idEntregador, U.nome, idPedido, P.statusPedido AS 'Status'
 FROM PEDIDO P
 INNER JOIN ENTREGADOR E
-    ON P.idEntregador = E.idEntregrador
+    ON P.idEntregador = E.idEntregador
     INNER JOIN USUARIO U
         ON U.idUser = E.idUser
-GROUP BY E.idEntregrador
+ORDER BY E.idEntregador
 
 -- h) Bole mais uma consulta interessante
--- Supermercados com maior número de pedidos
-SELECT S.nome, COUNT(P.idSupermercado)
-FROM PEDIDO P
+-- Quantos produtos cada supermercado vendeu todo
+SELECT S.nome, COUNT(I.idSuperMercado) AS 'Número de pedidos'
+FROM ITEM I
 INNER JOIN SUPERMERCADO S
-    ON P.idSuperMercado = S.idSupermercado
-GROUP BY P.idSuperMercado
-ORDER BY COUNT(P.idSupermercado) DESC
+    ON I.idSuperMercado = S.idSuperMercado
+GROUP BY I.idSuperMercado
+ORDER BY COUNT(I.idSuperMercado) DESC
