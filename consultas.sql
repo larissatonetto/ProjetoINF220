@@ -77,8 +77,8 @@ INNER JOIN ENTREGADOR E
 ORDER BY E.idEntregador
 
 -- h) Bole mais uma consulta interessante
--- Quantos produtos cada supermercado vendeu todo
-SELECT S.nome, COUNT(I.idSuperMercado) AS 'Número de pedidos'
+-- Quantos produtos cada supermercado vendeu
+SELECT S.nome, COUNT(I.idSuperMercado) AS 'Produtos vendidos'
 FROM ITEM I
 INNER JOIN SUPERMERCADO S
     ON I.idSuperMercado = S.idSuperMercado
