@@ -1,64 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS padrão Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
-    <!-- CSS customizado -->
-    <link rel="stylesheet" href="./css/styles.css">
-
-    <!-- Fontes -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
-    <title>Carrinho</title>
-</head>
-
-<!-- Breadcrumb -->
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="./index.html" class="text-decoration-none">Home</a></li>
-      <li class="breadcrumb-item active">Registro</li>
-    </ol>
-</nav>
-
-<body class="car-body">
+<div class="car-body">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/supermercados" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item active">Registro</li>
+        </ol>
+    </nav>
     <div class="container-fluid car-container pb-3">
-        <div class="py-5">
+        <div class="py-3">
             <h2 class="fw-bold">Carrinho</h2>
         </div>
-
-        <ul class="list-group mb-3"> <!-- Lista de itens -->
-            {{#each itens}}
-            
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <p class="my-0">{{nome}}</p>
-                <small class="text-muted">{{supermercado}}</small>
-              </div>
-              <span class="text-muted">R${{preco}}</span>
-            </li>
-            {{/each}}
-            
-            <!-- Total -->
-            <li class="list-group-item d-flex justify-content-between">
-                <span>Taxa de entrega</span>
-                <span class="text-muted">R${{frete}}</span>
-              </li>
-
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total</span>
-              <strong>R${{valorFinal}}</strong>
-            </li>
-            <!-- Final do total -->
-          </ul> <!-- Final da lista de itens -->
-
+        <div id="supermercados"></div>
         <hr class="my-5">
     <form action="/addPedido/{{idC}}" method="POST">
         <!-- Endereço -->
@@ -68,7 +20,6 @@
             {{#each endereco}}
             <option value={{idEndereco}}>{{apelido}}</option>
             {{/each}}
-
         </select>
 
         <!-- Final do endereço -->
@@ -141,14 +92,57 @@
 
     </div> <!-- /div do container -->
 
+</div>
+<script defer>
+    window.onload = (event) => {
+        const divsup = document.getElementById('supermercados');
+        let htmlDivSup = ''
+        for (let supermercado in cart) {
+            let total = {{frete}};
+            console.log(metaCart)
+            console.log(metaCart.supermercado[supermercado])
+            htmlDivSup += `
+                    <div class="py-2">
+                    <h3>${metaCart.supermercado[supermercado]}</h3>
+                </div>
+                <ul class="list-group mb-3"> <!-- Lista de itens -->`
+            for(let produto in cart[supermercado]){
+                total += parseFloat(metaCart.produto[produto].preco);
+                htmlDivSup += `
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                <p class="my-0">${metaCart.produto[produto].nome}</p>
+                </div>
+                <span class="text-muted">${parseFloat(metaCart.produto[produto].preco).toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL'
+                })}</span>
+                </li>
+                `;
+                console.log(metaCart.produto[produto])
+            }
+            htmlDivSup += `
+                <!-- Total -->
+                <li class="list-group-item d-flex justify-content-between" style='visibility:false; border: 0px;'></li>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Taxa de entrega</span>
+                <span class="text-muted">${parseFloat({{frete}}).toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL'
+            })}</span>
+              </li>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
-</body>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total</span>
+              <strong>${parseFloat(total).toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL'
+            })}</strong>
+            </li></ul>`
+        }
+        divsup.innerHTML = htmlDivSup;
+    };
 
-<footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2021 elComprador</p>
-</footer>
+    // console.log(metaCart)
 
-</html>
+</script>

@@ -14,8 +14,7 @@ const pool = mariadb.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'elComprador',
-    connectionLimit: 5
+    database: 'elComprador'
 });
 
 
@@ -25,14 +24,40 @@ var hbs = exphbs.create({
     defaultLayout: 'main',
     helpers: {
         breafing: function (val){
-            return val.substring(0, 150);
+            if(val.length > 147) val = val.substring(0, 147) + '...';
+            return val;
         },
         parserMoney: function(val) {
-            console.log('entrouuu')
             return parseFloat(val).toLocaleString('pt-br', {
                 style: 'currency',
                 currency: 'BRL'
             })
+        },
+        'ifCond': function (v1, operator, v2, options) {
+            switch (operator) {
+                case '==':
+                    return (v1 == v2) ? options.fn(this) : options.inverse(this);
+                case '===':
+                    return (v1 === v2) ? options.fn(this) : options.inverse(this);
+                case '!=':
+                    return (v1 != v2) ? options.fn(this) : options.inverse(this);
+                case '!==':
+                    return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+                case '<':
+                    return (v1 < v2) ? options.fn(this) : options.inverse(this);
+                case '<=':
+                    return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+                case '>':
+                    return (v1 > v2) ? options.fn(this) : options.inverse(this);
+                case '>=':
+                    return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+                case '&&':
+                    return (v1 && v2) ? options.fn(this) : options.inverse(this);
+                case '||':
+                    return (v1 || v2) ? options.fn(this) : options.inverse(this);
+                default:
+                    return options.inverse(this);
+            }
         }
     }
 });
@@ -44,7 +69,8 @@ app.get('/registro-cliente', (req,res) =>{
     res.render('cliente')
 })
 app.get('/', (req,res) =>{
-    res.render('index')
+    // res.render('index')
+    res.redirect('/supermercados/')
 })
 
 
@@ -63,7 +89,7 @@ app.post('/addCliente', async(req,res) =>{
     result = await conn.query("INSERT INTO `METODOPAGAMENTO` (`idCliente`) VALUES (?);", [idCliente]);
     const idPagamento = result.insertId
     await conn.query("INSERT INTO `CARTAO` (`idMetodoPagamento`, `tipo`, `numero`, `nomeTitular`, `validade`, `CVV`) VALUES (?, ?, ?, ?, ?, ?);", [idPagamento, tipo, numCartao, nomeTitular, validade, CVV]);
-
+    conn.end();
     res.redirect('/')
 })
 
@@ -80,6 +106,8 @@ app.get('/carrinho/:id', async(req,res) => {
     }
     const valorEntrega = 5;
     total += valorEntrega;
+    conn.end();
+
     res.render('carrinho', {
         itens: produtos,
         valorFinal: total,
@@ -99,9 +127,9 @@ app.post('/addPedido/:id', async(req,res) =>{
     const result = await conn.query("INSERT INTO `PEDIDO` (`idCliente`, `idEndereco`,`idEntregador`,`idMetodoPagamento`, `dataPedido`, `valorTotal`, `statusPedido`) VALUES (?, ?,?,?,150221,?,?);", [idCliente, endereco,1, cartao,total,'Realizado']);
     const idPedido = result.insertId
     await conn.query("UPDATE ENTREGADOR SET carteira = carteira + 5 WHERE idEntregador = (?);", [1]);
-    await conn.query("INSERT INTO ENTREGA (`idEntregador`, `idCliente`, `idPedido`, `idEndereco`, `gorjeta`, `dataEntrega`, `valorEntrega`) VALUES (?,?,?,?,?,?,?);",[1,idCliente,idPedido,endereco,0,'150221',5]);
+    await conn.query("INSERT INTO ENTREGA (`idEntregador`, `idCliente`, `idPedido`, `idEndereco`, `gorjeta`, `dataEntrega`, `valorEntrega`) VALUES (?,?,?,?,?,?,?);",[1,idCliente,idPedido,endereco,0,Date.now().toString(),5]);
 
-
+    conn.end();
     res.redirect('/');
 })
 
@@ -109,22 +137,53 @@ app.post('/addPedido/:id', async(req,res) =>{
 app.get('/supermercados', async (req,res) =>{
     const conn = await pool.getConnection();
     const superMercados = await conn.query("SELECT  * FROM SUPERMERCADO") || [];
-    console.log(superMercados)
+    conn.end();
     res.render('supermercados',{superMercados})
 })
 
 app.get('/supermercados/:id', async (req,res) =>{
     const conn = await pool.getConnection();
     const {id} = req.params;
+    console.log(req.query)
+    let {oferta=0,corredor,busca=''} = req.query
+    if(corredor=='-1') corredor = false;
     let superMercado = await conn.query("SELECT  nome FROM SUPERMERCADO WHERE idSuperMercado = "+id);
-    if(superMercado!=undefined) superMercado = superMercado[0];
-
-    const query = 'SELECT S.idSuperMercado, P.nome,P.descricao, SP.preco, (SP.preco*(1-(SP.desconto/100))) as precoDesconto FROM SUPERMERCADO S INNER JOIN SUPERMERCADO_PRODUTO SP on S.idSuperMercado = SP.idSuperMercado INNER JOIN PRODUTO P on SP.idProduto = P.idProduto WHERE S.idSuperMercado = '+ id
+    if(superMercado!==undefined) superMercado = superMercado[0];
+    const condOferta = oferta?` AND SP.promocao = ${oferta}`:'';
+    const condCorredor = corredor?` AND P.idCorredor = ${corredor}`:'';
+    const query = `SELECT S.idSuperMercado, P.idProduto, P.nome,P.descricao, SP.preco, (SP.preco*(1-(SP.desconto/100))) as precoDesconto, SP.desconto, C.nome as corredor, P.idCorredor FROM SUPERMERCADO S
+        INNER JOIN SUPERMERCADO_PRODUTO SP on S.idSuperMercado = SP.idSuperMercado
+        INNER JOIN PRODUTO P on SP.idProduto = P.idProduto
+        INNER JOIN CORREDOR C ON C.idCorredor = P.idCorredor
+        WHERE S.idSuperMercado = ${id} AND P.nome LIKE '%${busca}%' ${condOferta} ${condCorredor}`
     console.log(query)
     const produtos = await conn.query(query) || [];
-
-    res.render('supermercado',{superMercado, produtos})
+    const corredores = await conn.query(`SELECT * FROM CORREDOR`) || [];
+    conn.end();
+    res.render('supermercado',{
+        superMercado,
+        produtos,
+        corredores,
+        oferta,
+        corredor,
+        busca,
+        idSuperMercado: id
+    })
 })
 
+app.post('/login',async (req,res)=>{
+    const email = req.body.loginCliEmail;
+    const senha = req.body.loginCliSenha;
+    const conn = await pool.getConnection();
+    const result = await conn.query(`
+        SELECT idCliente, U.nome, U.sobrenome FROM USUARIO U
+                          INNER JOIN CLIENTE C ON C.idUser = U.idUser
+        WHERE email = ? AND senha = ?`,[email,senha]);
+    // console.log(result)
+    let client = {};
+    if(result.length > 0) client = result[0]
+    conn.end();
+    res.render('login',{client})
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

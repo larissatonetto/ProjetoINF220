@@ -1,0 +1,12 @@
+<script>
+    {{#if client.idCliente}}
+        localStorage.setItem("client",JSON.stringify({
+            idCliente: '{{client.idCliente}}',
+            nome: '{{client.nome}}',
+            sobrenome: '{{client.sobrenome}}'
+        }))
+    {{else}}
+        alert('Usuário ou senha inválidos')
+    {{/if}}
+    //window.location.replace("/supermercados");
+</script>
