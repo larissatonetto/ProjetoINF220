@@ -15,11 +15,9 @@
     <!-- Cards dos itens -->
     <!-- Cada linha contém no máximo 4 cards -->
     <div class="row row-cols-2 row-cols-lg-4 g-3">
-        <!-- Card do supermercado -->
-        <div class="col">
-            <!-- Clicar na card redireciona para a página do supermercado-->
-
-            {{#each superMercados}}
+        <!-- Clicar na card redireciona para a página do supermercado-->
+        {{#each superMercados}}
+            <div class="col"> <!-- Card do supermercado -->
                 <a href="/supermercados/{{this.idSuperMercado}}" class="card a-card" style="border: none;">
                     <div class="card-item sup-card text-center h-100">
                         <img src="/img/mercados/{{this.foto}}" onerror="this.onerror=null; this.src='/img/not-found-image.png'" class="card-img-top" alt="Logo Supermercado">
@@ -28,7 +26,7 @@
                         </div>
                     </div>
                 </a>
-            {{/each}}
-        </div> <!-- Final da card -->
+            </div> <!-- Final da card -->
+        {{/each}}
     </div>
 </div>
