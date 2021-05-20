@@ -8,18 +8,6 @@ INNER JOIN PRODUTO P
 WHERE idSuperMercado = 1
 ORDER BY C.nome
 
-/*
-SELECT nome,descricao,C.nome,unidade,SP.preco
-FROM SUPERMERCADO_PRODUTO SP
-INNER JOIN PRODUTO P
-    ON SP.idProduto = P.idProduto
-    INNER JOIN CORREDOR C
-        ON C.idCorredor = P.idCorredor
-WHERE idSuperMercado = id
-ORDER BY C.nome
-SELECT nome,descric
-*/
-
 -- b) Consulta a pedidos dos clientes, status, valor total, etc
 SELECT idPedido, UC.nome, UE.nome, statusPedido, valorTotal, dataPedido, dataEntrega,
 CASE
@@ -56,6 +44,7 @@ FROM ITEM I
 INNER JOIN PRODUTO P
     ON P.idProduto = I.idProduto
 GROUP BY I.idProduto
+ORDER BY COUNT(I.idProduto) DESC
 
 -- e) Listar clientes com maior volume de pedidos
 SELECT U.nome, COUNT(P.idCliente)
@@ -65,6 +54,7 @@ INNER JOIN CLIENTE C
     INNER JOIN USUARIO U
         ON U.idUser = C.idUser
 GROUP BY P.idCliente
+ORDER BY COUNT(P.idCliente) DESC
 
 -- f) Listar CE com extrato de movimentação de sua carteira
 SELECT E.idEntregrador, U.nome, valorEntrega, gorjeta, valorEntrega + gorjeta AS 'Total'
@@ -85,6 +75,10 @@ INNER JOIN ENTREGADOR E
 GROUP BY E.idEntregrador
 
 -- h) Bole mais uma consulta interessante
-
-
-/* if idMetodoPagamento = NULL THEN "Dinheiro" */
+-- Supermercados com maior número de pedidos
+SELECT S.nome, COUNT(P.idSupermercado)
+FROM PEDIDO P
+INNER JOIN SUPERMERCADO S
+    ON P.idSuperMercado = S.idSupermercado
+GROUP BY P.idSuperMercado
+ORDER BY COUNT(P.idSupermercado) DESC
