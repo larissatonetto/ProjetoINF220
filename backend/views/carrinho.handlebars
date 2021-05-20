@@ -107,13 +107,13 @@
                 </div>
                 <ul class="list-group mb-3"> <!-- Lista de itens -->`
             for(let produto in cart[supermercado]){
-                total += parseFloat(metaCart.produto[produto].preco);
+                total += parseFloat(metaCart.produto[produto].preco) * cart[supermercado][produto];
                 htmlDivSup += `
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                 <div>
                 <p class="my-0">${metaCart.produto[produto].nome}</p>
                 </div>
-                <span class="text-muted">${parseFloat(metaCart.produto[produto].preco).toLocaleString('pt-br', {
+                <span class="text-muted">${cart[supermercado][produto]} x ${parseFloat(metaCart.produto[produto].preco).toLocaleString('pt-br', {
                 style: 'currency',
                 currency: 'BRL'
                 })}</span>
